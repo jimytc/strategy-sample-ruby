@@ -42,7 +42,8 @@ class CartTest < Minitest::Test
   private
 
   def calculate_shipping_fee(shipper, length, width, height, weight)
-    @cart.shipping_fee(shipper, length, width, height, weight)
+    product = Product.new(length, width, height, weight)
+    @cart.shipping_fee(shipper, product)
   end
 
   def fee_should_be(expected, shipping_fee)
