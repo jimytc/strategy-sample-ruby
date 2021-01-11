@@ -19,9 +19,7 @@ class Cart
       fee_by_weight = 80 + weight * 10
       size = length * width * height
       fee_by_size = size * 0.00002 * 1100
-      return fee_by_weight if fee_by_weight < fee_by_size
-
-      fee_by_size
+      [fee_by_weight, fee_by_size].min
     else
       raise ArgumentError, 'shipper does not exist'
     end
