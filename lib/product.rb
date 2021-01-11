@@ -7,4 +7,8 @@ class Product
     @height = height
     @weight = weight
   end
+
+  def size
+    length * width * height
+  end
 end
