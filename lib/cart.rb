@@ -9,15 +9,19 @@ class Cart
     elsif shipper == :hsinchu
       fee_by_hsinchu(product)
     elsif shipper == :post_office
-      fee_by_weight = 80 + product.weight * 10
-      fee_by_size = product.size * 0.00002 * 1100
-      [fee_by_weight, fee_by_size].min
+      fee_by_post_office(product)
     else
       raise ArgumentError, 'shipper does not exist'
     end
   end
 
   private
+
+  def fee_by_post_office(product)
+    fee_by_weight = 80 + product.weight * 10
+    fee_by_size = product.size * 0.00002 * 1100
+    [fee_by_weight, fee_by_size].min
+  end
 
   def fee_by_hsinchu(product)
     if product.length > 100 or product.width > 100 or product.height > 100
