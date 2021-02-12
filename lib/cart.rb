@@ -5,11 +5,7 @@ require_relative 'product.rb'
 class Cart
   def shipping_fee(shipper, product)
     if shipper == :black_cat
-      if product.weight > 20
-        500
-      else
-        100 + product.weight * 10
-      end
+      fee_by_black_cat(product)
     elsif shipper == :hsinchu
       if product.length > 100 or product.width > 100 or product.height > 100
         product.size * 0.00002 * 1100 + 500
@@ -22,6 +18,16 @@ class Cart
       [fee_by_weight, fee_by_size].min
     else
       raise ArgumentError, 'shipper does not exist'
+    end
+  end
+
+  private
+
+  def fee_by_black_cat(product)
+    if product.weight > 20
+      500
+    else
+      100 + product.weight * 10
     end
   end
 end
