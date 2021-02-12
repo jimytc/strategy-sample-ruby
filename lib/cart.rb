@@ -3,13 +3,18 @@
 require_relative 'product.rb'
 
 class Cart
+  def initialize
+    super
+    @shipper_methods = {
+      black_cat: method(:fee_by_black_cat),
+      hsinchu: method(:fee_by_hsinchu),
+      post_office: method(:fee_by_post_office),
+    }
+  end
+
   def shipping_fee(shipper, product)
-    if shipper == :black_cat
-      fee_by_black_cat(product)
-    elsif shipper == :hsinchu
-      fee_by_hsinchu(product)
-    elsif shipper == :post_office
-      fee_by_post_office(product)
+    if @shipper_methods.key?(shipper)
+      @shipper_methods[shipper][product]
     else
       raise ArgumentError, 'shipper does not exist'
     end
